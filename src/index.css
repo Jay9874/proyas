@@ -1,0 +1,124 @@
+/* Font Awesome goes in the lowest layer so Tailwind classes on icons (sizes, colours) take precedence */
+@layer icons, theme, base, components, utilities;
+@import "@fortawesome/fontawesome-free/css/all.min.css" layer(icons);
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Outfit", "Plus Jakarta Sans", sans-serif;
+
+  /* Brand palette, pinned to exact hex values */
+  --color-teal-50: #f0fdfa;
+  --color-teal-100: #ccfbf1;
+  --color-teal-200: #99f6e4;
+  --color-teal-300: #5eead4;
+  --color-teal-400: #2dd4bf;
+  --color-teal-500: #14b8a6;
+  --color-teal-600: #0d9488;
+  --color-teal-700: #0f766e;
+  --color-teal-800: #115e59;
+  --color-teal-900: #134e4a;
+  --color-teal-950: #042f2e;
+
+  --color-mint-50: #f5fbf7;
+  --color-mint-100: #e6f7ec;
+  --color-mint-200: #ccefd8;
+  --color-mint-500: #10b981;
+
+  --color-amber-50: #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+
+  /* Booking dialog entrance */
+  --animate-dialog-in: dialog-in 0.2s ease-out;
+
+  @keyframes dialog-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Hero carousel caption appearing */
+  --animate-caption-in: caption-in 0.5s ease-out;
+
+  @keyframes caption-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Pulsating ring around the floating WhatsApp badge */
+  --animate-pulse-ring: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 16px rgba(16, 185, 129, 0);
+    }
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+  }
+}
+
+@layer base {
+  body {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Tailwind v4 gives buttons the default cursor; keep the pointer the design expects */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /* Stop the page scrolling behind the open booking dialog */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+}
+
+/* Hero photos: on phones they fade into the headline below them */
+@utility mask-fade-bottom {
+  mask-image: linear-gradient(to bottom, black 55%, transparent);
+}
+
+/* On large screens they fade in from behind the text on their left, and into the section below */
+@utility mask-fade-left {
+  mask-image: linear-gradient(to right, transparent, black 40%), linear-gradient(to top, transparent, black 10%);
+  mask-composite: intersect;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #0d9488;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0f766e;
+}
