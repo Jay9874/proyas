@@ -14,22 +14,10 @@ interface Slide {
 
 const SLIDES: Slide[] = [
   {
-    src: "/hero/img_1_proyas.jpeg",
-    alt: "A girl sticking torn red paper onto a Santa Claus drawing",
-    title: "Fine motor skills",
-    position: "object-[50%_0%] sm:object-[50%_40%] lg:object-[50%_35%]",
-  },
-  {
     src: "/hero/img_2_proyas.jpeg",
     alt: "A girl guiding two hoops over a cone in the sensory gym",
     title: "Motor planning",
     position: "object-[50%_0%]",
-  },
-  {
-    src: "/hero/img_3_proyas.jpeg",
-    alt: "Children, parents and teachers seated in a circle outdoors under the trees",
-    title: "Together with families",
-    position: "object-[50%_0%] sm:object-[50%_70%] lg:object-[55%_50%]",
   },
   {
     src: "/hero/img_4_proyas.jpeg",
@@ -48,6 +36,19 @@ const SLIDES: Slide[] = [
     alt: "A girl kneeling beside a rope on an obstacle course, placing a cone",
     title: "Obstacle course",
     position: "object-[50%_0%]",
+  },
+  {
+    src: "/hero/img_9_proyas.jpeg",
+    alt: "Children, parents and teachers gathered around a cake, celebrating together",
+    title: "Celebrating together",
+    position: "object-[45%_0%] sm:object-[50%_50%] lg:object-[45%_50%]",
+  },
+  {
+    // A screenshot whose bottom corner carries app icons; every crop keeps it out of view
+    src: "/hero/img_10_proyas.jpeg",
+    alt: "Children, families and teachers in festive clothes gathered around a decorated puja altar",
+    title: "Festival celebrations",
+    position: "object-[50%_0%] sm:object-[50%_45%] lg:object-[50%_50%]",
   },
 ];
 
