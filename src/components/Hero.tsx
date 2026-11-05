@@ -32,7 +32,7 @@ export default function Hero({ onBook }: { onBook: () => void }) {
       <div className="absolute bottom-0 left-0 -mb-12 -ml-12 w-80 h-80 bg-mint-200/30 rounded-full blur-3xl pointer-events-none"></div>
 
       {/* Text column. First in the DOM for screen readers; on phones it is pulled up over the photo's faded edge */}
-      <div className="relative z-10 order-2 -mt-16 sm:-mt-24 lg:mt-0 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 lg:pb-0 lg:pointer-events-none">
+      <div className="relative z-10 order-2 -mt-20 sm:-mt-24 lg:mt-0 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 lg:pb-0 lg:pointer-events-none">
         <div className="lg:min-h-[640px] lg:flex lg:items-center">
           <div className="lg:w-1/2 lg:py-14 lg:pointer-events-auto">
             <div className="flex flex-wrap items-center gap-2 mb-5 sm:mb-6">
@@ -122,7 +122,7 @@ export default function Hero({ onBook }: { onBook: () => void }) {
         Photos: on phones a full-width strip above the text that fades into the headline;
         on large screens a panel on the right that fades in from behind the text.
       */}
-      <div className="order-1 relative h-80 sm:h-96 md:h-[28rem] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[54%]">
+      <div className="order-1 relative h-[30rem] sm:h-96 md:h-[28rem] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[54%]">
         <HeroCarousel />
       </div>
     </section>

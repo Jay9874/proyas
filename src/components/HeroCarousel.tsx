@@ -6,8 +6,8 @@ interface Slide {
   alt: string;
   title: string;
   /**
-   * Crop anchor. Phones show a wide, short strip; large screens a tall panel whose left side fades
-   * behind the text, so keep the child in view at both.
+   * Crop anchor. Phones show a tall strip pinned to the top of each photo, so none loses its top; tablets a
+   * wide, short strip; large screens a tall panel whose left side fades behind the text. Keep the child in view.
    */
   position: string;
 }
@@ -17,31 +17,31 @@ const SLIDES: Slide[] = [
     src: "/hero/img_1_proyas.jpeg",
     alt: "A girl sticking torn red paper onto a Santa Claus drawing",
     title: "Fine motor skills",
-    position: "object-[50%_40%] lg:object-[50%_35%]",
+    position: "object-[50%_0%] sm:object-[50%_40%] lg:object-[50%_35%]",
   },
   {
     src: "/hero/img_2_proyas.jpeg",
     alt: "A girl guiding two hoops over a cone in the sensory gym",
     title: "Motor planning",
-    position: "object-[50%_5%] lg:object-[50%_0%]",
+    position: "object-[50%_0%]",
   },
   {
     src: "/hero/img_3_proyas.jpeg",
     alt: "Children, parents and teachers seated in a circle outdoors under the trees",
     title: "Together with families",
-    position: "object-[50%_70%] lg:object-[55%_50%]",
+    position: "object-[50%_0%] sm:object-[50%_70%] lg:object-[55%_50%]",
   },
   {
     src: "/hero/img_4_proyas.jpeg",
     alt: "A boy stacking coloured rings on a ring tower",
     title: "Hand–eye coordination",
-    position: "object-[50%_30%] lg:object-[60%_40%]",
+    position: "object-[60%_0%] sm:object-[50%_30%] lg:object-[60%_40%]",
   },
   {
     src: "/hero/img_5_proyas.jpeg",
     alt: "Children around classroom tables making a tricolour paper chain",
     title: "Group activities",
-    position: "object-[50%_50%] lg:object-[45%_50%]",
+    position: "object-[50%_0%] sm:object-[50%_50%] lg:object-[45%_50%]",
   },
   {
     src: "/hero/img_7_proyas.jpeg",
@@ -101,7 +101,10 @@ export default function HeroCarousel() {
       }}
     >
       {/* Only the photos fade into the page; the controls below stay fully visible */}
-      <div aria-live={playing ? "off" : "polite"} className="absolute inset-0 mask-fade-bottom lg:mask-fade-left">
+      <div
+        aria-live={playing ? "off" : "polite"}
+        className="absolute inset-0 mask-fade-long sm:mask-fade-bottom lg:mask-fade-left"
+      >
         {SLIDES.map((slide, i) => {
           const active = i === index;
           return (
@@ -132,10 +135,10 @@ export default function HeroCarousel() {
       </div>
 
       {/*
-        Spans the photo. The row rests near its bottom edge (on phones, just above the faded part the headline
+        Spans the photo. The row rests near its bottom edge (below large screens, just above the strip the headline
         overlaps) and sticks to the bottom of the screen while the photo runs past the fold.
       */}
-      <div className="absolute inset-0 flex flex-col justify-end pb-[4.75rem] sm:pb-28 lg:pb-8 pointer-events-none">
+      <div className="absolute inset-0 flex flex-col justify-end pb-24 sm:pb-28 lg:pb-8 pointer-events-none">
         {/* Caption at the right end; dots centred from sm up, at the left end on phones so both fit one row */}
         <div
           id={HERO_CONTROLS_ID}

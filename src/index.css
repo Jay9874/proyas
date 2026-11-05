@@ -109,7 +109,12 @@
   }
 }
 
-/* Hero photos: on phones they fade into the headline below them */
+/* Hero photos on phones: a long, gentle fade, so their lower half stays partly visible down into the headline */
+@utility mask-fade-long {
+  mask-image: linear-gradient(to bottom, black 50%, rgb(0 0 0 / 0.6) 72%, rgb(0 0 0 / 0.25) 88%, transparent);
+}
+
+/* On tablets they fade into the headline below them */
 @utility mask-fade-bottom {
   mask-image: linear-gradient(to bottom, black 55%, transparent);
 }
