@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { HERO_CONTROLS_ID } from "../lib/elementIds";
 
 interface Slide {
@@ -14,47 +14,60 @@ interface Slide {
 
 const SLIDES: Slide[] = [
   {
-    src: "/hero/climbing-wall.webp",
-    alt: "A young child climbing a sensory climbing wall",
-    title: "Sensory integration gym",
-    position: "object-[50%_40%] lg:object-[50%_30%]",
+    src: "/hero/img_1_proyas.jpeg",
+    alt: "A girl sticking torn red paper onto a Santa Claus drawing",
+    title: "Fine motor skills",
+    position: "object-[50%_40%] lg:object-[50%_35%]",
   },
   {
-    src: "/hero/balance-training.webp",
-    alt: "A boy balancing on textured balance pods while placing a cone",
-    title: "Balance & coordination",
-    position: "object-[50%_25%] lg:object-[50%_20%]",
+    src: "/hero/img_2_proyas.jpeg",
+    alt: "A girl guiding two hoops over a cone in the sensory gym",
+    title: "Motor planning",
+    position: "object-[50%_5%] lg:object-[50%_0%]",
   },
   {
-    src: "/hero/craft-activity.webp",
-    alt: "A boy working on a paper craft activity with his teacher",
-    title: "Special education",
-    position: "object-[50%_35%] lg:object-[25%_50%]",
+    src: "/hero/img_3_proyas.jpeg",
+    alt: "Children, parents and teachers seated in a circle outdoors under the trees",
+    title: "Together with families",
+    position: "object-[50%_70%] lg:object-[55%_50%]",
   },
   {
-    src: "/hero/motor-planning.webp",
-    alt: "A boy using two long sticks to lift a ring onto a cone",
+    src: "/hero/img_4_proyas.jpeg",
+    alt: "A boy stacking coloured rings on a ring tower",
     title: "Hand–eye coordination",
-    position: "object-[70%_50%] lg:object-[100%_50%]",
+    position: "object-[50%_30%] lg:object-[60%_40%]",
   },
   {
-    src: "/hero/celebrations.webp",
-    alt: "Children and teachers dressed in white with tricolour sashes, celebrating Independence Day",
-    title: "Celebrating together",
-    position: "object-[60%_50%] lg:object-[63%_50%]",
+    src: "/hero/img_5_proyas.jpeg",
+    alt: "Children around classroom tables making a tricolour paper chain",
+    title: "Group activities",
+    position: "object-[50%_50%] lg:object-[45%_50%]",
+  },
+  {
+    src: "/hero/img_7_proyas.jpeg",
+    alt: "A girl kneeling beside a rope on an obstacle course, placing a cone",
+    title: "Obstacle course",
+    position: "object-[50%_0%]",
   },
 ];
 
 const SLIDE_DURATION_MS = 5500;
 const SWIPE_THRESHOLD_PX = 40;
-/** Indicator dots; they cycle on their own, whatever the number of photos */
-const INDICATOR_COUNT = 3;
+/** Time for the dots to slide one place; the timer starts once the new dot reaches the centre */
+const DOT_SLIDE_MS = 300;
+/** Distance between dot centres */
+const DOT_SPACING_PX = 24;
+/** The centre dot and one either side are shown; the outer two wait faded out, ready to slide in */
+const DOT_OFFSETS = [-2, -1, 0, 1, 2];
 
 const wrap = (n: number, size: number) => ((n % size) + size) % size;
 
-/** Auto-advancing, cross-fading photo slideshow for the hero. Pauses on hover or focus and honours reduced motion. */
+/**
+ * Auto-advancing, cross-fading photo slideshow for the hero. The centre dot fills up as the timer, and the dots
+ * either side step back and forward. Pauses for keyboard focus and honours reduced motion.
+ */
 export default function HeroCarousel() {
-  // Counts every advance without wrapping, so the photos and the indicator dots can each loop at their own length
+  // Counts every advance without wrapping. It also keys the dots, so each keeps its element as it slides along
   const [step, setStep] = useState(0);
   const [playing, setPlaying] = useState(
     () => !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -63,15 +76,7 @@ export default function HeroCarousel() {
   const touchStartX = useRef<number | null>(null);
 
   const index = wrap(step, SLIDES.length);
-  const activeIndicator = wrap(step, INDICATOR_COUNT);
   const running = playing && !paused;
-
-  // Restarts on every advance and on resume, so each photo gets a full turn on screen
-  useEffect(() => {
-    if (!running) return;
-    const timer = setTimeout(() => setStep((s) => s + 1), SLIDE_DURATION_MS);
-    return () => clearTimeout(timer);
-  }, [step, running]);
 
   return (
     <div
@@ -80,9 +85,10 @@ export default function HeroCarousel() {
       aria-label="Moments from PROYAS"
       // clip rather than hidden: hidden would stop the caption row sticking to the bottom of the screen
       className="relative h-full w-full overflow-clip"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
+      // Holds still while keyboard users move through the controls; a click or tap leaves the timer running
+      onFocus={(e) => {
+        if (e.target.matches(":focus-visible")) setPaused(true);
+      }}
       onBlur={() => setPaused(false)}
       onTouchStart={(e) => {
         touchStartX.current = e.touches[0].clientX;
@@ -136,16 +142,51 @@ export default function HeroCarousel() {
           className="sticky bottom-6 mx-4 sm:mx-6 lg:mx-10 flex items-center justify-between gap-2 sm:grid sm:grid-cols-[1fr_auto_1fr]"
         >
           <span aria-hidden="true" className="hidden sm:block"></span>
-          <div className="shrink-0 flex items-center gap-2 rounded-full bg-slate-950/40 backdrop-blur-sm pl-3 pr-1 py-1 shadow-lg pointer-events-auto">
-            <div aria-hidden="true" className="flex items-center gap-2">
-              {Array.from({ length: INDICATOR_COUNT }, (_, i) => (
-                <span
-                  key={i}
-                  className={`block w-2 h-2 rounded-full transition-all duration-300 ${
-                    i === activeIndicator ? "bg-white scale-125" : "bg-white/45"
-                  }`}
-                ></span>
-              ))}
+          <div className="shrink-0 flex items-center gap-1 rounded-full bg-slate-950/40 backdrop-blur-sm px-1 py-1 shadow-lg pointer-events-auto">
+            {/* Previous and next buttons sit over the side dots, which slide past underneath them */}
+            <div className="relative w-[72px] h-7">
+              <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
+                {DOT_OFFSETS.map((offset) => {
+                  const centre = offset === 0;
+                  return (
+                    <span
+                      key={step + offset}
+                      className={`absolute top-1/2 left-1/2 h-2 rounded-full overflow-hidden bg-white/45 transition-all ease-out motion-reduce:transition-none ${
+                        centre ? "w-6" : "w-2"
+                      } ${Math.abs(offset) > 1 ? "opacity-0" : "opacity-100"}`}
+                      style={{
+                        transform: `translate(-50%, -50%) translateX(${offset * DOT_SPACING_PX}px)`,
+                        transitionDuration: `${DOT_SLIDE_MS}ms`,
+                      }}
+                    >
+                      {centre && (
+                        <span
+                          className="block h-full rounded-full bg-white animate-dot-progress"
+                          style={{
+                            animationDuration: `${SLIDE_DURATION_MS}ms`,
+                            animationDelay: `${DOT_SLIDE_MS}ms`,
+                            animationPlayState: running ? "running" : "paused",
+                          }}
+                          // This is the timer: the next photo comes in when the centre dot is full
+                          onAnimationEnd={() => setStep((s) => s + 1)}
+                        ></span>
+                      )}
+                    </span>
+                  );
+                })}
+              </div>
+              <button
+                type="button"
+                onClick={() => setStep((s) => s - 1)}
+                aria-label="Previous photo"
+                className="absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full hover:bg-white/15 transition-colors"
+              ></button>
+              <button
+                type="button"
+                onClick={() => setStep((s) => s + 1)}
+                aria-label="Next photo"
+                className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full hover:bg-white/15 transition-colors"
+              ></button>
             </div>
             <button
               type="button"

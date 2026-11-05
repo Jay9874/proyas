@@ -33,8 +33,21 @@ const PROGRAMS: {
   },
   {
     tone: "amber",
-    icon: "fa-book-open-reader",
+    icon: "fa-comment-dots",
     iconClassName: "bg-amber-600 text-amber-50 shadow-amber-900/10",
+    title: "Speech & Language Therapy",
+    description:
+      "Speech therapists work on oral motor skills, clear pronunciation and fluency so children can express their needs with confidence.",
+    points: [
+      "Oral motor rehabilitation",
+      "Vocal clarity & stammering support",
+      "Communication tools & vocabulary",
+    ],
+  },
+  {
+    tone: "teal",
+    icon: "fa-book-open-reader",
+    iconClassName: "bg-teal-800 text-teal-100 shadow-teal-950/10",
     title: "Special Education & IEP",
     description:
       "Certified special educators set one-to-one learning goals that build school readiness at the child's own pace.",
@@ -44,26 +57,18 @@ const PROGRAMS: {
       "Mainstream school readiness",
     ],
   },
-  {
-    tone: "teal",
-    icon: "fa-house-chimney-user",
-    iconClassName: "bg-teal-800 text-teal-100 shadow-teal-950/10",
-    title: "Safe, Structured Day Care",
-    description:
-      "Trained caregivers, peer play, meal routines and rest, with therapy sessions built into the day.",
-    points: [
-      "High caregiver-to-child ratio",
-      "Child-safe, sanitised rooms",
-      "Daily therapy slots included",
-    ],
-  },
 ];
 
 const SUPPORTING_THERAPIES = [
   {
-    icon: "fa-microphone-lines",
+    icon: "fa-comment-dots",
     title: "Speech & Language Therapy",
     text: "Oral motor rehabilitation, vocal clarity, stammering intervention, and communication tools.",
+  },
+  {
+    icon: "fa-child-reaching",
+    title: "Occupational Therapy",
+    text: "Motor skills, sensory regulation, handwriting and daily self-care, built through purposeful play.",
   },
   {
     icon: "fa-shapes",
@@ -72,18 +77,13 @@ const SUPPORTING_THERAPIES = [
   },
   {
     icon: "fa-puzzle-piece",
-    title: "Play Therapy",
-    text: "Guided play that helps children express feelings, build social skills and manage emotions.",
-  },
-  {
-    icon: "fa-brain",
-    title: "Brain Gym",
-    text: "Simple movement exercises that sharpen focus, coordination and readiness to learn.",
+    title: "Play Therapy & Brain Gym",
+    text: "Guided play and simple movement exercises that build social skills, emotional expression, focus and coordination.",
   },
   {
     icon: "fa-screwdriver-wrench",
-    title: "Vocational Training",
-    text: "Practical work and daily-living skills that build independence for teens and young adults.",
+    title: "Vocational Training & Special Education",
+    text: "Special education alongside practical work and daily-living skills that build independence for teens and young adults.",
   },
   {
     icon: "fa-clipboard-list",

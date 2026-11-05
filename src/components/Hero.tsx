@@ -1,26 +1,26 @@
 import { CERTIFICATE, PHONE_DISPLAY, PHONE_HREF } from "../config";
 import HeroCarousel from "./HeroCarousel";
 
-const TRUST_MARKERS = [
+const HIGHLIGHTS = [
   {
-    icon: "fa-shield-heart",
+    icon: "fa-child-reaching",
     iconClassName: "bg-teal-50 border-teal-100 text-teal-700",
-    title: "100% Child-Safe Environment",
+    title: "Occupational Therapy",
   },
   {
-    icon: "fa-certificate",
+    icon: "fa-comment-dots",
     iconClassName: "bg-amber-50 border-amber-100 text-amber-600",
-    title: "Experienced Specialists",
+    title: "Speech Therapy",
   },
   {
-    icon: "fa-clipboard-user",
+    icon: "fa-book-open-reader",
     iconClassName: "bg-teal-50 border-teal-100 text-teal-700",
-    title: "Individualized Education (IEP)",
+    title: "Special Education",
   },
   {
-    icon: "fa-house-chimney-medical",
+    icon: "fa-hands-holding-child",
     iconClassName: "bg-mint-100 border-mint-200 text-teal-800",
-    title: "Integrated Day Care",
+    title: "Attentive Day Care",
   },
 ];
 
@@ -57,9 +57,10 @@ export default function Hero({ onBook }: { onBook: () => void }) {
             </h1>
 
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-7 sm:mb-8 max-w-xl">
-              Occupational therapy, speech therapy, special education and
-              attentive day care at our Dum Dum and Barrackpore centres, working
-              hand-in-hand with parents towards every milestone.
+              A 100% child-safe environment, experienced specialists,
+              individualized education (IEP) and integrated day care at our Dum
+              Dum and Barrackpore centres, working hand-in-hand with parents
+              towards every milestone.
             </p>
 
             <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 mb-8">
@@ -82,7 +83,7 @@ export default function Hero({ onBook }: { onBook: () => void }) {
             </div>
 
             <ul className="grid grid-cols-2 gap-x-3 sm:gap-x-4 gap-y-3 mb-8 max-w-lg">
-              {TRUST_MARKERS.map(({ icon, iconClassName, title }) => (
+              {HIGHLIGHTS.map(({ icon, iconClassName, title }) => (
                 <li key={title} className="flex items-center gap-2 sm:gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 leading-snug">
                   <span
                     className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 ${iconClassName}`}

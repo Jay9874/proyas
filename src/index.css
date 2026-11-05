@@ -59,6 +59,18 @@
     }
   }
 
+  /* Hero carousel timer filling the centre dot; its duration, delay and play state are set inline */
+  --animate-dot-progress: dot-progress linear both;
+
+  @keyframes dot-progress {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
   /* Pulsating ring around the floating WhatsApp badge */
   --animate-pulse-ring: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 
