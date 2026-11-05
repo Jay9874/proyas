@@ -122,7 +122,7 @@ export default function Hero({ onBook }: { onBook: () => void }) {
         Photos: on phones a full-width strip above the text that fades into the headline;
         on large screens a panel on the right that fades in from behind the text.
       */}
-      <div className="order-1 relative h-[30rem] sm:h-96 md:h-[28rem] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[54%]">
+      <div className="order-1 relative h-[30rem] sm:h-96 md:h-[28rem] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[60%]">
         <HeroCarousel />
       </div>
     </section>

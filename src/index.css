@@ -119,9 +119,26 @@
   mask-image: linear-gradient(to bottom, black 55%, transparent);
 }
 
-/* On large screens they fade in from behind the text on their left, and into the section below */
+/*
+  On large screens they reach in behind the text on their left and fade out there, so the photo is fully visible
+  from about where the text ends. The fade follows an ease-in-out curve so it has no visible start or end. They
+  also fade into the section below
+*/
 @utility mask-fade-left {
-  mask-image: linear-gradient(to right, transparent, black 40%), linear-gradient(to top, transparent, black 10%);
+  mask-image:
+    linear-gradient(
+      to right,
+      transparent,
+      rgb(0 0 0 / 0.04) 4%,
+      rgb(0 0 0 / 0.16) 8%,
+      rgb(0 0 0 / 0.32) 12%,
+      rgb(0 0 0 / 0.5) 16%,
+      rgb(0 0 0 / 0.68) 20%,
+      rgb(0 0 0 / 0.84) 24%,
+      rgb(0 0 0 / 0.96) 28%,
+      black 32%
+    ),
+    linear-gradient(to top, transparent, black 10%);
   mask-composite: intersect;
 }
 
